@@ -37,7 +37,7 @@ The cap of 99 energy can be checked for 20-energy Digimon by counting relative t
 
 ## Enhancement
 
-First is the Pre-Enhancement counter. Arbitrarily this description supposes that it starts at 0. It resets to 0 when the Digimon evolves. Wrapping the 4-protein counter makes it go up by 1. A care mistake makes it go down by 1. (Contrary to popular belief, training does nothing here.) The full possible range is -4 to +4. But during a single evolution stage, it can only go up 4 times and down 4 times. For example, if you put it up to 3, then it can only go down to -1, and then it can go up to 0 after that. Once it has moved up 4 times and down 4 times, it's stuck at 0 until the Digimon evolves again.
+First is the Pre-Enhancement counter. Arbitrarily this description supposes that it starts at 0. It resets to 0 when the Digimon evolves. Wrapping the 4-protein counter makes it go up by 1. A care mistake makes it go down by 1. (Contrary to popular belief, training does nothing here.) The full possible range is -4 to +4. But during a single evolution stage, it can only go up 4 times and down 4 times. For example, if you put it up to 3, then it can only go down to -1, and then it can go up to 0 after that. Once it has moved up 4 times and down 4 times, it's stuck at 0 until the Digimon evolves again. Most likely, there are two counters for protein power-up and care mistakes, each ranging from 0-4, with `PreEnhancement = ProteinPowerUp - CareMistakes`.
 
 Then the Pre-Enhancement is combined with the Digimon's current strength hearts to get the final Enhancement value which can be seen in the battle signals. The result is the average of the two, rounded down, with a minimum of 0. However, the Weak English V1 fails to take account of the strength hearts for this calculation, and behaves as if they are always at 0!
 
@@ -58,6 +58,7 @@ This was most likely intended to increase the probability of injury when more pr
 * Old/New Japanese V1; Strong English V1; Japanese V2; probably English V2; maybe V3
   * Energy wrapping at +10 (see above).
 * Weak English V1
+  * Fails to add the strength hearts when calculating Enhancement (see above).
   * Visible energy overfill (see above).
   * The walk animation differs by one frame. Shortly before snapping at the right-hand side, it faces left for one frame where all the other versions face right. This is only visible on non-symmetrical Digimon. (Thanks to BetamonZ at WtW for spotting this. I am currently seeking permission for use of the original video, but can record a new one if necessary.)
 * V5 (only checked Japanese) and Weak English V1 (why these two?!)
