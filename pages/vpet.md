@@ -33,7 +33,7 @@ There are 6 extra energy bars which appear outside the meter. The bottom-right e
 
 The cap of 99 energy can be checked for 20-energy Digimon by counting relative to the bottom-left extra bar: after giving some number of protein which would mean energy above 99 if there was no cap, they always lose that bar after 10 battles. It can also be checked for Mamemon and Monzaemon due to their immunity to injury at high numbers of protein (see "Vulnerability" below). Other Digimon will die too quickly to check it.
 
-![Energy glitch](images/vpet_energy_glitch.png)
+![Energy glitch](/images/vpet_energy_glitch.png)
 
 ## Enhancement
 
@@ -41,7 +41,7 @@ First is the Pre-Enhancement counter. Arbitrarily this description supposes that
 
 Then the Pre-Enhancement is combined with the Digimon's current strength hearts to get the final Enhancement value which can be seen in the battle signals. The result is the average of the two, rounded down, with a minimum of 0. However, the Weak English V1 fails to take account of the strength hearts for this calculation, and behaves as if they are always at 0!
 
-![Enhancement result table](images/vpet_enhancement_table.png)
+![Enhancement result table](/images/vpet_enhancement_table.png)
 
 ## Vulnerability
 

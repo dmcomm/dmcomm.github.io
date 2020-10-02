@@ -22,7 +22,7 @@ Much of the above is already documented so I'm not currently repeating it.
 ## Original V-Pet
 
 * Slot 3-14 depending on growth chart position.
-* Enhancement normally 0-4, but 0-2 on the Weak English V1. See [here](vpet.md) for details.
+* Enhancement normally 0-4, but 0-2 on the Weak English V1. See [here](/vpet/) for details.
 * Version 0 for V1, 1 for V2 ... 4 for V5. Except, if a V1 is going second in the communication, it echoes what its opponent said.
 
 ## Original Pendulum
