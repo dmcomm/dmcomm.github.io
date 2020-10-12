@@ -11,8 +11,8 @@ The voltage levels are inverted compared with the other devices, i.e. the line i
 ## Field mapping
 
 * Packet 1
-  * 4 bits?: Version? If so, ShoutmonRed = 1
-  * 8 bits?: Slot? Is there any sort of attribute here?
+  * 4 bits: Version: Red=1, Blue=2, Black=3.
+  * 8 bits?: Slot. On Red, Shoutmon=1, then there appears to be a gap, then the other raisable Digimon start from 11. The 9 missing numbers may correspond to the non-raisable Digimon.
   * 4 bits: always 7
 * Packet 2
   * 12 bits?: Power. Each Digimon has a minimum and a maximum. Each protein makes it go up by 1. Training makes it go up. Leaving the lights on makes it go down. It also seems to go down slowly by itself, so maybe like Strength but with more than 4 of them. The variable bonus seems to be carried across evolution, so a max power Digimon remains at max power after evolving.
@@ -26,6 +26,9 @@ The voltage levels are inverted compared with the other devices, i.e. the line i
   * 3 bits?: always 0?
   * 5 bits: HitMe. Read bits from the right. 1 = I was hit. 0 = I dodged. The device who goes second inverts these bits; but if the device who goes first receives incorrect hit bits in the response, it ignores them when calculating the result.
   * 4 bits: always 7
+* Other notes
+  * There does not appear to be any "attribute" on these.
+  * The Digimon cannot battle while sick.
 
 ## Digimon
 
