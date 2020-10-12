@@ -1,8 +1,12 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
 
-...
+This site contains information about the communication protocols and some other observations for various Digimon items.
+
+[Arduino project](https://github.com/dmcomm/dmcomm-project)
+
+[Alpha interface](https://www.alphahub.site/)
+
+[0NL1NE](https://0nl1ne.netlify.app/)
+
