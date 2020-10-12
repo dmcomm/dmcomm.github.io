@@ -14,7 +14,7 @@ Each protein restores 1 Strength heart and adds 2 to Weight. Every 4 protein add
 
 Each species has a default/"full" number of energy, which it resets to upon sleeping for 8 hours continuously. The energy meter looks full at this number.
 
-**No overfill**: Confirmed on Japanese V4 and V5. The energy cannot be increased above the default value. To identify this, after a night's sleep, count the number of battles to lose the rightmost energy bar. After another night's sleep, give 4 protein then again count the number of battles to lose the rightmost energy bar. For the same species, the two counts should be the same. On V-Pets where overfill is possible, this test results in the second count being 1 higher.
+**No overfill**: Confirmed on English V2 and V3; Japanese V4 and V5. The energy cannot be increased above the default value. To identify this, after a night's sleep, count the number of battles to lose the rightmost energy bar. After another night's sleep, give 4 protein then again count the number of battles to lose the rightmost energy bar. For the same species, the two counts should be the same. On V-Pets where overfill is possible, this test results in the second count being 1 higher.
 
 **Wrapping**: Confirmed on both variants of Japanese V1; Strong English V1; Japanese V2. Overfilling the energy by 10 resets it to the default value. To identify this: 
 
@@ -55,12 +55,13 @@ This was most likely intended to increase the probability of injury when more pr
   * Maybe the brown and slate coloured ones (with Japan chain/packaging) - more confirmation needed. "Old"/"New" is still a bit of a guess too.
   * Refusing battle or medicine often shows the first walking frame before starting the refusal animation. [The brown one in this video](https://drive.google.com/file/d/0B-WY-Md6XwaxTDYzaU5SbmFwLTQ/view?usp=sharing). To test this, let the Digimon walk for a few frames before interrupting it, or the difference might not appear.
   * Devimon becomes immune to injury at 15 Vulnerability (see above).
-* Old/New Japanese V1; Strong English V1; Japanese V2; probably English V2; maybe V3
+* Old/New Japanese V1; Strong English V1; Japanese V2; maybe Japanese V3
   * Energy wrapping at +10 (see above).
 * Weak English V1
   * Fails to add the strength hearts when calculating Enhancement (see above).
   * Visible energy overfill (see above).
-  * The walk animation differs by one frame. Shortly before snapping at the right-hand side, it faces left for one frame where all the other versions face right. This is only visible on non-symmetrical Digimon. (Thanks to BetamonZ at WtW for spotting this. I am currently seeking permission for use of the original video, but can record a new one if necessary.)
+  * The walk animation differs by one frame. Shortly before snapping at the right-hand side, it faces left for one frame where all the other versions face right. [The brown one in this video](https://drive.google.com/file/d/1rQY_LnlEg9O5bYbjvVNfN84Nm95OK-CS/view?usp=sharing). (Thanks to BetamonZ at WtW for spotting this, and for the video.) This is only visible on non-symmetrical Digimon. It is difficult to see, so I recommend syncing your own Digimon's walk with the video and holding it up alongside.
+  * The clock gains 2-3 seconds on hatching, evolution, and possibly some other events. Note this is not a gradual clock drift. (Thanks to BetamonZ at WtW for spotting this.)
 * V5 (only checked Japanese) and Weak English V1 (why these two?!)
   * Going into the lights menu and selecting "On", the Digimon resumes walking from the position it was in before, while all the other versions go back to the start of the walking animation.
   * Possibly some sound and visual timing changes in training, battle and the clock screen.
