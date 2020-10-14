@@ -30,3 +30,23 @@ Not connected: [zoomed out](/images/scope/vpet_open_20ms.png), [left](/images/sc
 
 [4K7 ACom transmits and V-Pet replies](/images/scope/vpet_asr4k7.png). Transmission is good. V-Pet replies after 18.6ms.
 
+## Original Pendulum
+
+Testing an Asia release Pendulum 4.5. ACom supply voltage at 4.8V.
+
+Not connected: [zoomed out before](/images/scope/pen_open_20ms_before.png), [zoomed out](/images/scope/pen_open_20ms.png), [left](/images/scope/pen_open1.png), [right](/images/scope/pen_open2.png). Peaks 2.2V-2.4V. Valleys 0.1V. Listening 1.8V (with a slight 50Hz ripple; the higher-frequency ripple in these screenshots was not there later and is probably also interference). Initial pull-down 60ms. Start bit 2.0ms high, 0.9ms low. Bit one 2.6ms high, 1.5ms low. Bit zero 0.9ms high, 3.2ms low. Bit length 4.1ms for both one and zero. After final bit, drives high, then releases pretty much immediately, with some capacitive decay back to the listening level.
+
+[220K across](/images/scope/pen_220k.png). Listening drops to 1.3V, so the weak pull-up is ~360K. Peaks drop to 2.2V-2.3V, say an 0.05V drop, so the strong pull-up is ~~5K.
+
+[100K across](/images/scope/pen_100k_pulled.png). Listening drops to 1.0V-1.1V and the Pendulum detects it (will not transmit). Threshold is between 1.0V and 1.3V.
+
+[With 22K ACom](/images/scope/pen_ar22k.png). Valleys rise to 0.3V.
+
+[With 3K6 ACom](/images/scope/pen_ar3k6.png). Valleys rise to 1.0V, so the pull-down is ~1K2. Peaks rise to 2.5V.
+
+[4K7 ACom transmits and Pendulum replies](/images/scope/pen_asr4k7.png). Transmission is good. Pendulum replies after 8.2ms.
+
+[22K ACom transmits and Pendulum replies](/images/scope/pen_asr22k.png). ACom's valleys rise to 0.2V. Note the capacitive loading. Pendulum replies after 4.1ms this time. Other reply times were observed which fell between the two (seems unrelated to the resistance).
+
+[22K ACom transmits (zoomed in)](/images/scope/pen_as22k_1ms.png). [1K ACom for comparison](/images/scope/pen_as1k_1ms.png) suggesting that the input resistance is negligible and we can treat this as a pure capacitive input. With the 22K, rise and fall times 20%-80% are ~160us, suggesting a capacitance of ~5nF.
+
