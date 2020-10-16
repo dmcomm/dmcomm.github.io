@@ -50,3 +50,23 @@ Not connected: [zoomed out before](/images/scope/pen_open_20ms_before.png), [zoo
 
 [22K ACom transmits (zoomed in)](/images/scope/pen_as22k_1ms.png). [1K ACom for comparison](/images/scope/pen_as1k_1ms.png) suggesting that the input resistance is negligible and we can treat this as a pure capacitive input. With the 22K, rise and fall times 20%-80% are ~160us, suggesting a capacitance of ~5nF.
 
+## Pendulum X
+
+Testing a Pendulum X 1.0. ACom supply voltage at 4.7V.
+
+Not connected: [zoomed out](/images/scope/penx_open_20ms.png), [left](/images/scope/penx_open1.png), [right](/images/scope/penx_open2.png). Peaks 3V. Valleys 0V. Listening 2.9V. Initial pull-down 59ms. Start bit 2.1ms high, 1.7ms low. Bit one 3.1-3.2ms high, 1.7ms low (length 4.8-4.9ms). Bit zero 1.1ms high, 3.9ms low (length 5.0ms). After final bit, drives high, starts driving low again after 1.1ms as if we were going to have another zero bit, then releases after ~0.2ms at ~2V.
+
+[22K across](/images/scope/penx_22k.png). Listening drops to 1.1V, so the weak pull-up is ~36K. Peaks drop to ~2.9V, so the strong pull-up is ~~1K.
+
+[10K across](/images/scope/penx_10k_pulled.png). Listening drops to 0.55V and the PenX detects it (will not transmit). Threshold is between 0.55V and 1.1V.
+
+[With 3K6 ACom](/images/scope/penx_ar3k6.png). Valleys rise to 0.3V.
+
+[With 1K ACom](/images/scope/penx_ar1k.png). Valleys rise to 0.9V, so the pull-down is ~300R. Peaks drop to 2.9V.
+
+[4K7 ACom transmits and PenX replies](/images/scope/penx_asr4k7.png). Transmission is good. PenX replies after 6.3ms (and this seems reasonably consistent).
+
+[22K ACom transmits and PenX replies](/images/scope/penx_asr22k_ok.png). Valleys rise to 1.0-1.1V and the PenX still accepts it, so the threshold is between 1.0V and 1.1V. Note this is not the same as "22K across", since both of the ACom resistors are pulling down in parallel, giving 12K. Note the capacitive loading. PenX replies after 6.2ms.
+
+[22K ACom transmits (zoomed in)](/images/scope/penx_as22k_1ms.png). [1K ACom for comparison](/images/scope/penx_as1k_1ms.png), showing negligible input resistance like the Pendulum. With the 22K, rise and fall times 20%-80% are ~120us, suggesting a capacitance of ~4nF.
+
