@@ -70,3 +70,29 @@ Not connected: [zoomed out](/images/scope/penx_open_20ms.png), [left](/images/sc
 
 [22K ACom transmits (zoomed in)](/images/scope/penx_as22k_1ms.png). [1K ACom for comparison](/images/scope/penx_as1k_1ms.png), showing negligible input resistance like the Pendulum. With the 22K, rise and fall times 20%-80% are ~120us, suggesting a capacitance of ~4nF.
 
+## Digital Monster 20th
+
+Testing a first-wave brown version. ACom supply voltage at 4.7V. The battery voltage dropped during this session beyond what would normally be expected. The V-Pet is attempting to send a copy except where otherwise specified.
+
+Not connected: [zoomed out](/images/scope/dm20_open_50ms.png), [left](/images/scope/dm20_open1.png), [right](/images/scope/dm20_open2.png). Peaks 3.0V. Valleys 0.0V. Listening 2.0V with a large 50Hz ripple. Initial pull-down 60ms. Start bit 2.0ms high, 1.0ms low. Bit one 2.5-2.6ms high, 1.5-1.6ms low, length 4.1ms. Bit zero 0.8-0.9ms high, 3.3ms low, length 4.1-4.2ms. After final bit, drives high, then releases immediately, with a large capacitive decay back to the listening level. Fall time 20%-80% is ~28ms.
+
+[1M across](/images/scope/dm20_1M_other_50ms.png) ("other" battle here, but sending a copy looks the same shape). Listening drops to 1.5V, so the weak pull-up is ~330K. Supposing an RC circuit with 330K and the 28ms above, the capacitance is ~60nF.
+
+[470K across](/images/scope/dm20_470k_other_50ms.png) ("other" battle). Listening drops to 0.7V, the V-Pet detects it and replies with an [error packet](/images/scope/dm20_470k_other_20ms_pkt2.png). It doesn't reply when trying to send a copy, but will still send the initial packet even though the line is pulled low. Threshold is between 0.7V and 1.5V.
+
+1K across: [zoomed out](/images/scope/dm20_1k_20ms.png), [zoomed in](/images/scope/dm20_1k.png). The V-Pet still transmits even though the line is definitely pulled low. Peaks drop to 2.2V, so the strong pull-up is ~400R.
+
+[With 1K ACom](/images/scope/dm20_ar1k.png). Valleys rise to 0.6V, so the pull-down is ~200R. Peaks drop to 2.7V.
+
+[1K ACom transmits and V-Pet replies](/images/scope/dm20_asr1k.png). Transmission is good. V-Pet replies after 15ms.
+
+[3K6 ACom transmits and V-Pet replies](/images/scope/dm20_asr3k6.png). Transmission is OK. Note the capacitive loading. V-Pet replies after 15ms.
+
+[4K7 ACom transmits and V-Pet replies](/images/scope/dm20_asr4k7.png). The distortion is growing. V-Pet replies after 15ms.
+
+[10K ACom transmits and V-Pet replies](/images/scope/dm20_asr10k_20ms_2.png). Transmission looks dodgy but seems to have been accepted. V-Pet replies after 19ms this time.
+
+22K ACom transmits and V-Pet replies with an error packet: [sending](/images/scope/dm20_asr22k_20ms_1.png), [reply](/images/scope/dm20_asr22k_20ms_2.png). V-Pet replies after 28ms this time.
+
+[22K ACom transmits (zoomed in)](/images/scope/dm20_as22k_2ms.png). [1K ACom for comparison](/images/scope/dm20_as1k_2ms.png), still showing slight capacitive loading but not enough to be concerned about here. With the 22K, rise time 20%-80% is ~560us, fall time 1.0ms. As discussed above, the ACom's pull-down resistance is the lower one, and the V-Pet's 330K weak pull-up should not make that much difference, so this is the opposite of expected. Supposing 22K with 560us, capacitance would be ~18nF.
+
