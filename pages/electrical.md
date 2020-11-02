@@ -96,3 +96,25 @@ Not connected: [zoomed out](/images/scope/dm20_open_50ms.png), [left](/images/sc
 
 [22K ACom transmits (zoomed in)](/images/scope/dm20_as22k_2ms.png). [1K ACom for comparison](/images/scope/dm20_as1k_2ms.png), still showing slight capacitive loading but not enough to be concerned about here. With the 22K, rise time 20%-80% is ~560us, fall time 1.0ms. As discussed above, the ACom's pull-down resistance is the lower one, and the V-Pet's 330K weak pull-up should not make that much difference, so this is the opposite of expected. Supposing 22K with 560us, capacitance would be ~18nF.
 
+## Xros Wars Mini
+
+Testing Shoutmon version. ACom supply voltage at 4.8V.
+
+Not connected: [zoomed out](/images/scope/xrosmini_open_20ms.png), [left](/images/scope/xrosmini_open1.png), [right](/images/scope/xrosmini_open2.png). Note that an inactive line is low for these! Peaks 2.8 V. Valleys 0V. Listening 0V. Initial pull-up 42ms. Start bit 11.2ms low, 5.6ms high. Bit one 1.3-1.4ms low, 4.1-4.2ms high (length 5.4-5.6ms). Bit zero 4.1-4.2ms low, 1.2-1.4ms high (length 5.3-5.6ms). After final bit, releases with a small capacitive decay.
+
+[1K across](/images/scope/xrosmini_1k.png). Peaks drop to 1.2V, so the pull-up is ~1K3.
+
+[With 22K ACom set to pull up](/images/scope/xrosmini_aur22k.png). (When the Mini is pulling down, the test point connects to 4.8V through 22K, and to ground through the Mini in parallel with 26K7.) Listening rises to 1.4V, so the weak pull-down is ~14K. Valleys rise to 0.3V, so the strong pull-down is ~~1K5.
+
+[With 10K ACom set to pull up](/images/scope/xrosmini_au10k_error.png). Listening rises to 2.0V and the Mini detects it (will not transmit). Threshold is between 1.4V and 2.0V.
+
+The following AComs are set to pull down when listening.
+
+3K6 ACom [transmits](/images/scope/xrosmini_asr3k6_1.png) and Mini [replies](/images/scope/xrosmini_asr3k6_2.png). This looks OK. Mini replies after 17ms.
+
+10K ACom [transmits](/images/scope/xrosmini_asr10k_1.png) and Mini [replies](/images/scope/xrosmini_asr10k_2.png). This looks OK. Mini replies after 18ms.
+
+22K ACom [transmits](/images/scope/xrosmini_as22k_noreply.png) and Mini ignores it. The peaks are probably below the voltage threshold.
+
+[22K ACom transmits (zoomed in)](/images/scope/xrosmini_as22k_1ms.png). [1K ACom for comparison](/images/scope/xrosmini_as1k_1ms.png), which is pretty much straight. With the 22K, rise time 20%-80% is ~120us, fall time ~100us, suggesting a capacitance of ~3nF.
+
