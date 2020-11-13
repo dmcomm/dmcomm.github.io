@@ -70,6 +70,14 @@ Not connected: [zoomed out](/images/scope/penx_open_20ms.png), [left](/images/sc
 
 [22K ACom transmits (zoomed in)](/images/scope/penx_as22k_1ms.png). [1K ACom for comparison](/images/scope/penx_as1k_1ms.png), showing negligible input resistance like the Pendulum. With the 22K, rise and fall times 20%-80% are ~120us, suggesting a capacitance of ~4nF.
 
+## Other X-style (briefly)
+
+Mini V2, not connected: [zoomed out](/images/scope/mini_open_50ms.png), [left](/images/scope/mini_open1.png), [right](/images/scope/mini_open2.png). Peaks 2.8V. Valleys 0.0V. Listening 2.4V with a large 50Hz ripple. Initial pull-down 68ms. Start bit 2.8ms high, 1.3ms low. Bit one 4.5ms high, 1.3ms low, length 5.8ms. Bit zero 1.7ms high, 4.0-4.1ms low, length 5.7-5.8ms. After final bit, releases from low, with a capacitive decay back to the listening level. Rise time 20%-80% is ~1.6ms.
+
+Accelerator Nature Genome, not connected: [zoomed out](/images/scope/accel_open_50ms_x.png), [left](/images/scope/accel_open1_x.png), [right](/images/scope/accel_open2_x.png). These images are from the "X" battle option, but the "Accel" battle option gave the same results. Peaks 3.0V. Valleys 0.0V. Listening 2.7V with a large 50Hz ripple. Initial pull-down 60ms. Start bit 2.3ms high, 1.9ms low. Bit one 3.4-3.5ms high, 2.0-2.1ms low, length 5.5ms. Bit zero 1.2-1.3ms high, 4.3-4.4ms low, length 5.6-5.7ms. After final bit, drives high ~0.5ms early, then releases after ~1ms, with a capacitive decay back to the listening level.
+
+Digivice iC 101, not connected: [zoomed out](/images/scope/ic_open_50ms_mini.png), [left](/images/scope/ic_open1_mini.png), [right](/images/scope/ic_open2_mini.png). These images are from the "Mini" battle option, but the "Accel" battle option looked similar enough (and the two options appear to send the same bits, so there may be no difference between them at all). Peaks 2.8V. Valleys 0.0V. Listening 2.7V with substantial irregular noise. Initial pull-down 70ms. Start bit 2.8ms high, 1.5ms low. Bit one 4.5-4.7ms high, 1.5-1.7ms low, length 6.0-6.2ms. Bit zero 1.5-2.1ms high, 4.3-4.5ms low, length 5.8-6.2ms. After final bit, releases from low, with a capacitive decay back to the listening level. Rise time 20%-80% is ~0.5ms.
+
 ## Digital Monster 20th
 
 Testing a first-wave brown version. ACom supply voltage at 4.7V. The battery voltage dropped during this session beyond what would normally be expected. The V-Pet is attempting to send a copy except where otherwise specified.
