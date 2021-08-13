@@ -8,9 +8,15 @@ permalink: /guide/pi-pico/
 
 Experimental build using Raspberry Pi Pico to communicate with pronged and infrared Digimon toys. There is a choice between Arduino and CircuitPython firmware, providing different functionality. This is a brief guide for people already familiar with the project.
 
-The Alpha apps on Android do not currently work with the Pi Pico, but an update is expected soon.
-
 This document is part of the DMComm Software under the [MIT License](https://github.com/dmcomm/dmcomm-python/blob/main/LICENSE.txt). 
+
+## App status
+
+* Alpha on Windows: OK.
+* Alpha on Android: not currently working, but an update is expected soon.
+* W0rld on Windows: not working for unknown reasons.
+* W0rld on Android: not currently working, but an update is quite likely after Alpha.
+* ACom Wiki on Android: OK.
 
 ## Circuit
 
@@ -24,20 +30,21 @@ The new prong circuit is a 3-state level shifter like a D-Com, but with far fewe
 
 ## Arduino
 
-In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Manager. To flash the Pi Pico using Arduino for the first time, you need to hold the BOOTSEL button while connecting to the computer. Flash the sketch from the [pi-pico branch](https://github.com/dmcomm/dmcomm-project/blob/pi-pico/dmcomm/dmcomm.ino). You can right-click the "Raw" button and choose "Save as" to download the single file.
+Only pronged devices are currently supported. Usage is the same as for the original version, except currently missing the "T" command. Almost all the code is the same as the original version, so this is probably more reliable than the CircuitPython firmware option.
 
-Only pronged devices are currently supported. Usage is the same as for the original version (except currently missing the "T" command).
+In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Manager. (This project uses the official Arduino support and not the older unofficial one from Earle Philhower.) To flash the Pi Pico using Arduino for the first time, you need to hold the BOOTSEL button while connecting to the computer. Flash the sketch from the [pi-pico branch](https://github.com/dmcomm/dmcomm-project/blob/pi-pico/dmcomm/dmcomm.ino). You can right-click the "Raw" button and choose "Save as" to download the single file.
 
 ## CircuitPython
 
 ### Setup
 
-* Download latest CircuitPython from [the S3 storage](https://adafruit-circuit-python.s3.amazonaws.com/index.html?prefix=bin/raspberry_pi_pico/) (even 7.0 alpha 5 is missing something essential).
+* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.0.0-alpha.6`. More recent versions will probably work; note that older versions do not.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
 * Copy `code.py` and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
-* Now you can send commands using the desktop version of Alpha Serial as usual. Alpha Terminal does not appear to be working.
+* Now you can use the desktop versions of the Alpha apps as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
+* To update CircuitPython, repeat the first three steps. To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo.
 
 ### Usage
 
