@@ -21,7 +21,7 @@
 title: DMComm
 email: bladethecoder@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Info about Digimon connection and related things.
+  Research and development in Digimon connection
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
@@ -29,8 +29,10 @@ github_username:  dmcomm
 
 # Build settings
 theme: minima
-plugins:
-  - jekyll-feed
+
+# Suppress header pages
+header_pages:
+  -
 
 # Exclude from processing.
 # The following items will not be processed, by default.
