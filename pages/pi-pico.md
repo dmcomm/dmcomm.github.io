@@ -24,7 +24,7 @@ This document is part of the DMComm Software under the [MIT License](https://git
 * [Example breadboard diagram](/images/pi_pico_breadboard.png)
 * [Example breadboard photo](/images/pi_pico_breadboard.jpg) - note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard.
 
-The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The Xros Loader section is not entirely working, and may change to something completely different or be abandoned, so I'd only suggest building that if you're really keen to help!
+The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The IR LED circuit can be used by itself for D-Scanner barcodes, and in that case a red LED also works. The Xros Loader section is not entirely working, and may change to something completely different or be abandoned, so I'd only suggest building that if you're really keen to help!
 
 The new prong circuit is a 3-state level shifter like a D-Com, but with far fewer components. (It can't be used on 8-bit AVR because of a difference in how the pins are controlled.)
 
@@ -38,7 +38,7 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### Setup
 
-* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.0.0-alpha.6`. More recent versions will probably work; note that older versions do not.
+* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.0.0`. More recent versions will probably work.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
@@ -52,21 +52,15 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 * Experimental protocols start with "!". These may change at any time.
 * "!IC" for the iC uses the same 16-bit system as prongs, including the "@" and "^" calculation options. This protocol seems to be done, and will probably exit the "!" land as soon as I make a decision about how to label the protocols.
 * "!DL" and "!FL" for the Data Link and Fusion Loader have a variable number of bytes in each packet, and currently no calculation options. These protocols will probably change.
+* "!BC" for D-Scanner barcodes takes 13 decimal digits, and is used only with turn "1" because it is transmit-only. This protocol also seems to be done.
 * Turn "0" is not fully supported on infrared (will only capture one packet).
 * For iC, Data Link and Fusion Loader, don't hold it too close to the circuit. Using the layout above, about 5cm from the LED seems good.
+* For D-Scanner barcodes, hold the barcode scanner closer to the LED.
 * Xros Loader is not supported in this version. Please get in touch if you want to help gather data.
 
 ### iC
 
 * `!IC1-C067-4257-0197-0007-81C7` - example battle ("gao-chu-3" from the spreadsheet)
-
-### Data Link
-
-* `!DL1-3600B1000800002416300111-E7B1B1000800002416300111` - example battle
-* `!DL1-D500B11000000113-86B1B11000000113` - give 10 points (going first)
-* `!DL2-86B1B11000000113-86B1B11000000113` - give 10 points (going second)
-* `!DL1-D500B10000100113-86B1B10000100113` - take points (going first)
-* `!DL2-96B1B11000100113-96B1B11000100113` - take points (going second)
 
 ### Fusion Loader
 
@@ -84,8 +78,16 @@ For trading, only the sending side can initiate. Data from the receiving side se
 * `!FL2-AB80200B-2730C0A00B-7B50200B` - receive Aquilamon (or anyone really)
 * `!FL2-AB80200B-5B40C0A00B` - receive dummy code (so you don't lose your Digimon)
 
+### D-Scanner
+
+* `!BC1-0000000000111` - scan Gabumon on D-Scanner v1
+* `!BC1-0000000020211` - scan Renamon on D-Scanner v2
+* `!BC1-0000000750311` - scan Bearmon on D-Scanner v3
+
 ### Further research
 
-Let's chat before duplicating effort! There is a big spreadsheet for the iC already.
+Let's chat before duplicating effort! There is a big spreadsheet for the iC already. Barcode data is complete and should be added soon.
 
-For the iC, the redundant bits have already been found and processed. For the other two devices, there is probably something like that too which we don't know about yet.
+For the iC, the redundant bits have already been found and processed. For the Data Link and Fusion Loader, there could be something like that too which we don't know about yet.
+
+Codes for the Data Link appear to change according to some sort of player ID value.
