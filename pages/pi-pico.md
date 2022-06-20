@@ -13,9 +13,9 @@ This document is part of the DMComm Software under the [MIT License](https://git
 ## App status
 
 * Alpha on Windows: OK.
-* Alpha on Android: not currently working, but an update is expected soon.
-* W0rld on Windows: not working for unknown reasons.
-* W0rld on Android: not currently working, but an update is quite likely after Alpha.
+* Alpha on Android: OK; make sure you have the new version from Google Play.
+* W0rld on Windows: not working; fixing it is a major operation.
+* W0rld on Android: not working; could probably be fixed easier than on Windows.
 * ACom Wiki on Android: OK.
 
 ## Circuit
@@ -38,12 +38,12 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### Setup
 
-* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.0.0`. More recent versions will probably work.
+* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.3.0`. More recent `7.x.x` will probably work.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
 * Copy `code.py` and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
-* Now you can use the desktop versions of the Alpha apps as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
+* Now you can use the Alpha apps or ACom Wiki as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
 * To update CircuitPython, repeat the first three steps. To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo.
 
 ### Usage
@@ -54,13 +54,17 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 * "!DL" and "!FL" for the Data Link and Fusion Loader have a variable number of bytes in each packet, and currently no calculation options. These protocols will probably change.
 * "!BC" for D-Scanner barcodes takes 13 decimal digits, and is used only with turn "1" because it is transmit-only. This protocol also seems to be done.
 * Turn "0" is not fully supported on infrared (will only capture one packet).
-* For iC, Data Link and Fusion Loader, don't hold it too close to the circuit. Using the layout above, about 5cm from the LED seems good.
-* For D-Scanner barcodes, hold the barcode scanner closer to the LED.
+* For iC, Twin, Data Link and Fusion Loader, don't hold it too close to the circuit. Using the layout above, about 5cm from the LED seems good. For the Twin, hold it at an angle so the IR window is facing the LED (even connecting two Twins, holding them with the corners facing gives a much longer range than the way you're apparently supposed to hold them).
+* For D-Scanner barcodes, hold the barcode scanner close to the LED, maybe almost touching.
 * Xros Loader is not supported in this version. Please get in touch if you want to help gather data.
 
 ### iC
 
 * `!IC1-C067-4257-0197-0007-81C7` - example battle ("gao-chu-3" from the spreadsheet)
+
+### Twin
+
+jyoshiikuta shared a [spreadsheet](https://docs.google.com/spreadsheets/d/1-puBPGGxOGDkeOiYYP0wp9RQacDEvTBs/edit).
 
 ### Fusion Loader
 
@@ -86,7 +90,7 @@ For trading, only the sending side can initiate. Data from the receiving side se
 
 ### Further research
 
-Let's chat before duplicating effort! There is a big spreadsheet for the iC already. Barcode data is complete and should be added soon.
+Let's chat before duplicating effort! A lot of data has been gathered already.
 
 For the iC, the redundant bits have already been found and processed. For the Data Link and Fusion Loader, there could be something like that too which we don't know about yet.
 
