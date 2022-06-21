@@ -49,10 +49,10 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 ### Usage
 
 * Pronged protocols are the same as for the Arduino version.
+* "IC" for the iC uses the same 16-bit system as prongs, including the "@" and "^" calculation options. (Nothing changed from the experimental "!IC", so if you have a "!IC" code, you can just remove the "!".)
+* "BC" for D-Scanner barcodes takes 13 decimal digits, and is used only with turn "1" because it is transmit-only. (Nothing changed from the experimental "!BC", so if you have a "!BC" code, you can just remove the "!".)
 * Experimental protocols start with "!". These may change at any time.
-* "!IC" for the iC uses the same 16-bit system as prongs, including the "@" and "^" calculation options. This protocol seems to be done, and will probably exit the "!" land as soon as I make a decision about how to label the protocols.
 * "!DL" and "!FL" for the Data Link and Fusion Loader have a variable number of bytes in each packet, and currently no calculation options. These protocols will probably change.
-* "!BC" for D-Scanner barcodes takes 13 decimal digits, and is used only with turn "1" because it is transmit-only. This protocol also seems to be done.
 * Turn "0" is not fully supported on infrared (will only capture one packet).
 * For iC, Twin, Data Link and Fusion Loader, don't hold it too close to the circuit. Using the layout above, about 5cm from the LED seems good. For the Twin, hold it at an angle so the IR window is facing the LED (even connecting two Twins, holding them with the corners facing gives a much longer range than the way you're apparently supposed to hold them).
 * For D-Scanner barcodes, hold the barcode scanner close to the LED, maybe almost touching.
@@ -60,7 +60,7 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### iC
 
-* `!IC1-C067-4257-0197-0007-81C7` - example battle ("gao-chu-3" from the spreadsheet)
+* `IC1-C067-4257-0197-0007-81C7` - example battle ("gao-chu-3" from the spreadsheet)
 
 ### Twin
 
@@ -84,9 +84,9 @@ For trading, only the sending side can initiate. Data from the receiving side se
 
 ### D-Scanner
 
-* `!BC1-0000000000111` - scan Gabumon on D-Scanner v1
-* `!BC1-0000000020211` - scan Renamon on D-Scanner v2
-* `!BC1-0000000750311` - scan Bearmon on D-Scanner v3
+* `BC1-0000000000111` - scan Gabumon on D-Scanner v1
+* `BC1-0000000020211` - scan Renamon on D-Scanner v2
+* `BC1-0000000750311` - scan Bearmon on D-Scanner v3
 
 ### Further research
 
