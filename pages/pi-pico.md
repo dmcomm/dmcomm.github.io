@@ -88,6 +88,8 @@ For trading, only the sending side can initiate. Data from the receiving side se
 * `BC1-0000000020211` - scan Renamon on D-Scanner v2
 * `BC1-0000000750311` - scan Bearmon on D-Scanner v3
 
+The complete list is in a [spreadsheet](https://docs.google.com/spreadsheets/d/1wiIKQ0mRrzf5UuVdZyyg1QeLWvLohZ7D/edit).
+
 ### Further research
 
 Let's chat before duplicating effort! A lot of data has been gathered already.
