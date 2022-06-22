@@ -52,7 +52,7 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 * "IC" for the iC uses the same 16-bit system as prongs, including the "@" and "^" calculation options. (Nothing changed from the experimental "!IC", so if you have a "!IC" code, you can just remove the "!".)
 * "BC" for D-Scanner barcodes takes 13 decimal digits, and is used only with turn "1" because it is transmit-only. (Nothing changed from the experimental "!BC", so if you have a "!BC" code, you can just remove the "!".)
 * Experimental protocols start with "!". These may change at any time.
-* "!DL" and "!FL" for the Data Link and Fusion Loader have a variable number of bytes in each packet, and currently no calculation options. These protocols will probably change.
+* "!DL" and "!!FL" for the Data Link and Fusion Loader have a variable number of bytes in each packet, and currently no calculation options. These protocols will probably change. "!FL" codes had the bits in reverse order: to use them with the latest version, they will need to be converted using `utils/bit_reverse.py`.
 * Turn "0" is not fully supported on infrared (will only capture one packet).
 * For iC, Twin, Data Link and Fusion Loader, don't hold it too close to the circuit. Using the layout above, about 5cm from the LED seems good. For the Twin, hold it at an angle so the IR window is facing the LED (even connecting two Twins, holding them with the corners facing gives a much longer range than the way you're apparently supposed to hold them).
 * For D-Scanner barcodes, hold the barcode scanner close to the LED, maybe almost touching.
@@ -72,15 +72,15 @@ This device seems to retry individual packets. The software doesn't do this, whi
 
 For trading, only the sending side can initiate. Data from the receiving side seems to differ, but the sending side doesn't seem to care which variant of the receiving data it gets.
 
-* `!FL1-770000000000C04040000000808020880B-FB000000000060900B-C7F0200B` - example battle
-* `!FL1-2B00200B-9B4040A00B-C7F0200B` - send Agumon
-* `!FL1-2B00200B-C73040A00B-C7F0200B` - send Aquilamon
-* `!FL1-2B00200B-67F040A00B-C7F0200B` - send Ballistamon
-* `!FL1-2B00200B-20B440A00B-C7F0200B` - send Devimon
-* `!FL1-2B00200B-049240A00B-C7F0200B` - send Guardromon
-* `!FL2-AB80200B-5B40C0A00B-7B50200B` - receive Agumon (or anyone really)
-* `!FL2-AB80200B-2730C0A00B-7B50200B` - receive Aquilamon (or anyone really)
-* `!FL2-AB80200B-5B40C0A00B` - receive dummy code (so you don't lose your Digimon)
+* `!!FL1-D0110401010000000202030000000000EE-D009060000000000DF-D0040FE3` - example battle
+* `!!FL1-D00400D4-D0050202D9-D0040FE3` - send Agumon
+* `!!FL1-D00400D4-D005020CE3-D0040FE3` - send Aquilamon
+* `!!FL1-D00400D4-D005020FE6-D0040FE3` - send Ballistamon
+* `!!FL1-D00400D4-D005022D04-D0040FE3` - send Devimon
+* `!!FL1-D00400D4-D005024920-D0040FE3` - send Guardromon
+* `!!FL2-D00401D5-D0050302DA-D0040ADE` - receive Agumon (or anyone really)
+* `!!FL2-D00401D5-D005030CE4-D0040ADE` - receive Aquilamon (or anyone really)
+* `!!FL2-D00401D5-D0050302DA` - receive dummy code (so you don't lose your Digimon)
 
 ### D-Scanner
 
