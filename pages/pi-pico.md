@@ -13,9 +13,10 @@ This document is part of the DMComm Software under the [MIT License](https://git
 ## App status
 
 * Alpha on Windows: OK.
-* Alpha on Android: OK; make sure you have the new version from Google Play.
-* W0rld on Windows: not working; fixing it is a major operation.
-* W0rld on Android: not working; could probably be fixed easier than on Windows.
+* Alpha Terminal on Android: OK; make sure you have the new version from Google Play.
+* Alpha Serial on Android: not working; we are looking into it.
+* W0rld on Windows: OK when using the `data` serial port (see below).
+* W0rld on Android: not working; we are looking into it.
 * ACom Wiki on Android: OK.
 
 ## Circuit
@@ -28,6 +29,56 @@ The schematic shows the different sections of the circuit for each type of devic
 
 The new prong circuit is a 3-state level shifter like a D-Com, but with far fewer components. (It can't be used on 8-bit AVR because of a difference in how the pins are controlled.)
 
+### Parts list
+
+Insulated breadboard wires are good for connecting far-apart holes, and can be used for connectors to pronged toys. For short breadboard connections of 2-5 holes with no other components in between, you can get a neater result by using legs cut from extra resistors.
+
+Base:
+* Pi Pico with headers
+* 400 tie point breadboard
+* small pushbutton (tactile switch) recommended if using CircuitPython
+    * typically 3×3 on breadboard, but can insert 2 pins and flatten the others
+    * a wire can be used instead: add for updates; remove for normal use
+
+Prong circuit:
+* Resistors, 1 each of 470K, 100K, 4K7, 1K
+* 1nF ceramic capacitor
+* 3 short wires
+* Connector to toy e.g. 2 breadboard wires
+
+Shared between all IR devices and D-Scanner barcodes:
+* 950nm IR LED
+* 220R resistor
+* 1 short wire
+
+Data Link and Fusion Loader:
+* TSOP4838 IR sensor
+
+iC/Twin/DigiWindow:
+* TSMP58000 IR sensor
+* 22K resistor
+* 1nF ceramic capacitor
+* 1 short wire
+
+Xros Loader (highly experimental):
+* QSE159 IR sensor
+* 220R resistor
+* 2 × 100nF ceramic capacitor
+* 2 short wires
+* 2 breadboard wires
+
+Talispod/dam (experimental):
+* 1K2 resistor
+* 4K7 resistor
+* 1nF ceramic capacitor
+* 2 short wires
+* 1 breadboard wire
+* Connector to the toy
+    * Note: we can't just stick wires into the prongs as with Digimon
+    * Craft a connector?
+    * Desolder a Talisdam cord, replace with something else, and use the cord with other toys?
+    * Custom connectors are in development
+
 ## Arduino
 
 Only pronged devices are currently supported. Usage is the same as for the original version, except currently missing the "T" command. Almost all the code is the same as the original version, so this is probably more reliable than the CircuitPython firmware option.
@@ -38,13 +89,15 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### Setup
 
-* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.3.0`. More recent `7.x.x` will probably work.
+* Download CircuitPython 7 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `7.3.1`. More recent `7.x.x` will probably work.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
 * Copy `code.py` and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
+* Copy `boot.py` too if you want to switch to the `data` serial port and disable the CIRCUITPY drive (unless the custom button is held at startup). The `data` serial port is required for w0rld, but may not show all error messages. The CIRCUITPY drive is required for updating DMComm, but can make the program restart unexpectedly.
 * Now you can use the Alpha apps or ACom Wiki as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
-* To update CircuitPython, repeat the first three steps. To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo.
+* To update CircuitPython, repeat the first three steps.
+* To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo. If you copied `boot.py` earlier, connect the Pi Pico to the computer while holding the custom button (wait until CIRCUITPY appears before releasing the button). If you copied `boot.py` and don't have a button, connect GP3 to GND with a wire, then connect the Pi Pico to the computer.
 
 ### Usage
 
@@ -60,7 +113,10 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### iC
 
-* `IC1-C067-4257-0197-0007-81C7` - example battle ("gao-chu-3" from the spreadsheet)
+* `IC1-C067-4257-0197-0007-@F007` - Battle with iC 10x for Digi Shop 1
+* `IC1-D067-4257-0197-0007-@F007` - Battle with iC 20x for Digi Shop 2
+* `IC1-E067-4257-0197-0007-@F007` - Battle with Burst for Digi Shop 3
+* `IC1-D577-4927-0B47-0007-@F007` - Battle with DigiWindow for Digi Shop 4
 
 ### Twin
 
@@ -68,9 +124,9 @@ jyoshiikuta shared a [spreadsheet](https://docs.google.com/spreadsheets/d/1-puBP
 
 ### Fusion Loader
 
-This device seems to retry individual packets. The software doesn't do this, which basically means the device gets stuck for an annoyingly long time after a communication error, but it does work most of the time.
+This device seems to retry individual packets. The software doesn't do this, which basically means the toy gets stuck for an annoyingly long time after a communication error, but it does work most of the time.
 
-For trading, only the sending side can initiate. Data from the receiving side seems to differ, but the sending side doesn't seem to care which variant of the receiving data it gets.
+For trading, only the sending side can initiate. The receiving side varies with the Digimon sent. If it does not match, the communication completes and the toy says "OK", but the Digimon has not actually gone.
 
 * `!!FL1-D0110401010000000202030000000000EE-D009060000000000DF-D0040FE3` - example battle
 * `!!FL1-D00400D4-D0050202D9-D0040FE3` - send Agumon
@@ -78,9 +134,8 @@ For trading, only the sending side can initiate. Data from the receiving side se
 * `!!FL1-D00400D4-D005020FE6-D0040FE3` - send Ballistamon
 * `!!FL1-D00400D4-D005022D04-D0040FE3` - send Devimon
 * `!!FL1-D00400D4-D005024920-D0040FE3` - send Guardromon
-* `!!FL2-D00401D5-D0050302DA-D0040ADE` - receive Agumon (or anyone really)
-* `!!FL2-D00401D5-D005030CE4-D0040ADE` - receive Aquilamon (or anyone really)
-* `!!FL2-D00401D5-D0050302DA` - receive dummy code (so you don't lose your Digimon)
+* `!!FL2-D00401D5-D0050302DA-D0040ADE` - receive Agumon
+* `!!FL2-D00401D5-D005030CE4-D0040ADE` - receive Aquilamon
 
 ### D-Scanner
 
