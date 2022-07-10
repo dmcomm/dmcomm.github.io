@@ -21,9 +21,10 @@ This document is part of the DMComm Software under the [MIT License](https://git
 
 ## Circuit
 
-* [Schematic](/images/pi_pico_schematic.pdf)
-* [Example breadboard diagram](/images/pi_pico_breadboard.png)
-* [Example breadboard photo](/images/pi_pico_breadboard.jpg) - note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard.
+* [Schematic](/images/pi_pico_schematic.pdf) (updated 2022-07-10)
+* [Example breadboard diagram](/images/pi_pico_breadboard.png) - with prongs and all IR including Xros Loader, but not the button.
+* [Example breadboard photo](/images/pi_pico_breadboard.jpg) - as in the diagram above. Note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard.
+* [Photo with just the IR components, from the side](/images/pi_pico_ir_components.jpg) - TSMP58000 at the back, TSOP4838 directly in front of it - if using both, cut the TSOP4838 shorter so the TSMP58000 can see over it.
 
 The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The IR LED circuit can be used by itself for D-Scanner barcodes, and in that case a red LED also works. The Xros Loader section is not entirely working, and may change to something completely different or be abandoned, so I'd only suggest building that if you're really keen to help!
 
@@ -33,32 +34,34 @@ The new prong circuit is a 3-state level shifter like a D-Com, but with far fewe
 
 Insulated breadboard wires are good for connecting far-apart holes, and can be used for connectors to pronged toys. For short breadboard connections of 2-5 holes with no other components in between, you can get a neater result by using legs cut from extra resistors.
 
-Base:
+Base ([breadboard](/images/pi_pico_button.jpg)):
 * Pi Pico with headers
 * 400 tie point breadboard
 * small pushbutton (tactile switch) recommended if using CircuitPython
     * typically 3×3 on breadboard, but can insert 2 pins and flatten the others
     * a wire can be used instead: add for updates; remove for normal use
 
-Prong circuit:
+Prong circuit ([breadboard](/images/pi_pico_prongs.jpg)):
 * Resistors, 1 each of 470K, 100K, 4K7, 1K
 * 1nF ceramic capacitor
 * 3 short wires
 * Connector to toy e.g. 2 breadboard wires
 
-Shared between all IR devices and D-Scanner barcodes:
+IR LED circuit ([breadboard](/images/pi_pico_ir_led.jpg)), shared between all IR devices and D-Scanner barcodes:
 * 950nm IR LED
 * 220R resistor
 * 1 short wire
+    * can be shared with prong circuit
+    * or can connect resistor to nearby ground pin instead, but it's a bit tight
 
-Data Link and Fusion Loader:
+Data Link and Fusion Loader ([front-right in this photo](/images/pi_pico_ir_components.jpg)):
 * TSOP4838 IR sensor
 
-iC/Twin/DigiWindow:
+iC/Twin/DigiWindow ([breadboard](/images/pi_pico_ic.jpg)):
 * TSMP58000 IR sensor
 * 22K resistor
 * 1nF ceramic capacitor
-* 1 short wire
+* 2 short wires
 
 Xros Loader (highly experimental):
 * QSE159 IR sensor
@@ -71,7 +74,7 @@ Talispod/dam (experimental):
 * 1K2 resistor
 * 4K7 resistor
 * 1nF ceramic capacitor
-* 2 short wires
+* 3 short wires
 * 1 breadboard wire
 * Connector to the toy
     * Note: we can't just stick wires into the prongs as with Digimon
