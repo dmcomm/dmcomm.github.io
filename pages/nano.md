@@ -88,11 +88,12 @@ Enabled high (40ms): 576 units = 2.7-3.0V
 Enabled low (40ms): 0 units = 0.0-0.0V
 Disabled low (40ms): 0 units = 0.0-0.0V
 Disabled high (100ms): 576 units = 2.7-3.0V
-A-Com detected```
+A-Com detected
+```
 
 ## Connection
 
-The GND pin on the toy connects to GND in the circuit, and the signal pin on the toy to the A3 pin on the Arduino.
+The GND prong on the toy connects to GND in the circuit, and the signal prong on the toy to the A3 pin on the Arduino. For 3-prong devices, only one GND prong needs to be connected.
 
 ![toy connectors](/images/connector_toy_side.jpg)
 
