@@ -100,12 +100,12 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### Setup
 
-* Download CircuitPython 8 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `8.0.0-alpha.1`. More recent versions will probably work. `7.3.x` will probably still work, but is not being tested regularly, and note that the iC sensor requires extra components.
+* Download CircuitPython 8 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `8.0.0-beta.0`. More recent versions will probably work. `7.3.x` will probably still work, but is not being tested regularly, and note that the iC sensor requires extra components.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
-* Copy `code.py` and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
-* Copy `boot.py` too if you want to switch to the `data` serial port and disable the CIRCUITPY drive (unless the custom button is held at startup). The `data` serial port is required for w0rld, but may not show all error messages. The CIRCUITPY drive is required for updating DMComm, but can make the program restart unexpectedly.
+* Copy `code.py`, `board_config.py`, and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
+* Copy `boot.py` too if you want to switch to the `data` serial port and disable the CIRCUITPY drive (unless the custom button is held at startup). The `data` serial port is required for w0rld, but may not show all error messages. The CIRCUITPY drive is required for updating DMComm, but can make the program restart unexpectedly. You will need to reset/replug the Pi Pico before `boot.py` takes effect.
 * Now you can use the Alpha apps or ACom Wiki as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
 * To update CircuitPython, repeat the first three steps.
 * To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo. If you copied `boot.py` earlier, connect the Pi Pico to the computer while holding the custom button (wait until CIRCUITPY appears before releasing the button). If you copied `boot.py` and don't have a button, connect GP3 to GND with a wire, then connect the Pi Pico to the computer.
