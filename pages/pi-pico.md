@@ -84,8 +84,8 @@ Xros Loader (highly experimental):
 
 Talispod/dam:
 * Note this was originally on GP8 and GP9, then only on GP9, now on GP15!
-* 1K2 resistor
-* 3K3 resistor
+* 1K2 resistor (1%)
+* 3K3 resistor (1%)
 * 1nF ceramic capacitor
 * 3 short wires
 * 1 breadboard wire
