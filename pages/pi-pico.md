@@ -6,24 +6,29 @@ permalink: /guide/pi-pico/
 
 ## Introduction
 
-Experimental build using Raspberry Pi Pico to communicate with pronged and infrared Digimon toys. There is a choice between Arduino and CircuitPython firmware, providing different functionality. This is a brief guide for people already familiar with the project.
+Project using Raspberry Pi Pico and other RP2040 boards to communicate with pronged and infrared Digimon toys. There is a choice between Arduino and CircuitPython firmware, providing different functionality. This is a brief guide for people already familiar with the DMComm project.
 
 This document is part of the DMComm Software under the [MIT License](https://github.com/dmcomm/dmcomm-python/blob/main/LICENSE.txt). 
 
 ## App status
 
 * Alpha on Windows: OK.
-* Alpha Terminal on Android: OK; make sure you have the new version from Google Play.
-* Alpha Serial on Android: not working; we are looking into it.
+* Alpha on Android: OK; make sure you have the new version from Google Play.
 * W0rld on Windows: OK when using the `data` serial port (see below).
-* W0rld on Android: not working; we are looking into it.
+* W0rld on Android: not working.
 * ACom Wiki on Android: OK.
+
+## WiFiCom
+
+[WiFiCom](https://github.com/mechawrench/wificom-lib) is a closely related project to communicate with Digimon toys over WiFi. The build includes the circuits described here. If you build the project on this page using Pi Pico W, it can be upgraded to a WiFiCom in the future. If using Pi Pico W for the project on this page, adding the visible LED circuit on GP10 is recommended but not required.
 
 ## Circuit
 
-* [Schematic](/images/pi_pico_schematic.pdf) (updated 2022-08-10)
-* [Example breadboard diagram](/images/pi_pico_breadboard.png) - with prongs and all IR including Xros Loader, but not the button.
-* [Example breadboard photo](/images/pi_pico_breadboard.jpg) - as in the diagram above. Note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard.
+**Note:** the default `prong_in` is being moved from GP26 to GP22 for Python. Please check your circuit and `board_config.py` to ensure they match. An analog pin (default GP26) is still required for Arduino.
+
+* [Schematic](/images/picocom_wificom_2023-02-01.pdf) (including WiFiCom in lower half, updated 2023-02-01).
+* [Example breadboard diagram](/images/pi_pico_breadboard.png) - with prongs and all IR including Xros Loader, but not the button (`prong_in` still on GP26).
+* [Example breadboard photo](/images/pi_pico_breadboard.jpg) - as in the diagram above. Note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard (`prong_in` still on GP26).
 * [Photo with just the IR components, from the side](/images/pi_pico_ir_components.jpg) - TSMP58000 at the back, TSOP4838 directly in front of it - if using both, cut the TSOP4838 shorter so the TSMP58000 can see over it.
 
 The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The IR LED circuit can be used by itself for D-Scanner barcodes, and in that case a red LED also works. The Xros Loader section is not entirely working, and may change to something completely different or be abandoned, so I'd only suggest building that if you're really keen to help! On the schematic, some pins on the Pi Pico are reserved for related projects but not explained in this guide.
@@ -41,7 +46,7 @@ Base ([breadboard](/images/pi_pico_button.jpg)):
     * typically 3×3 on breadboard, but can insert 2 pins and flatten the others
     * a wire can be used instead: add for updates; remove for normal use
 
-Prong circuit ([breadboard](/images/pi_pico_prongs.jpg)):
+Prong circuit ([breadboard](/images/pi_pico_prongs.jpg), `prong_in` still on GP26):
 * Resistors, 1 each of 470K, 100K, 4K7, 1K
 * 1nF ceramic capacitor
 * 3 short wires
@@ -77,7 +82,7 @@ Xros Loader (highly experimental):
 * 2 breadboard wires
 * (Also need the IR LED circuit)
 
-Talispod/dam (experimental):
+Talispod/dam:
 * Note this was originally on GP8 and GP9, then only on GP9, now on GP15!
 * 1K2 resistor
 * 3K3 resistor
@@ -92,7 +97,7 @@ Talispod/dam (experimental):
 
 ## Arduino
 
-Only pronged devices are currently supported. Usage is the same as for the original version, except currently missing the "T" command. Almost all the code is the same as the original version, so this is probably more reliable than the CircuitPython firmware option.
+Only pronged devices are currently supported. Usage is the same as for the original version, except currently missing the "T" command. The CircuitPython firmware option is now recommended instead.
 
 In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Manager. (This project uses the official Arduino support and not the older unofficial one from Earle Philhower.) To flash the Pi Pico using Arduino for the first time, you need to hold the BOOTSEL button while connecting to the computer. Flash the sketch from the [pi-pico branch](https://github.com/dmcomm/dmcomm-project/blob/pi-pico/dmcomm/dmcomm.ino). You can right-click the "Raw" button and choose "Save as" to download the single file.
 
@@ -100,7 +105,7 @@ In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Man
 
 ### Setup
 
-* Download CircuitPython 8 from the [website](https://circuitpython.org/board/raspberry_pi_pico/). Tested with `8.0.0-beta.0`. More recent versions will probably work. `7.3.x` will probably still work, but is not being tested regularly, and note that the iC sensor requires extra components.
+* Download CircuitPython 8 from the [website](https://circuitpython.org/downloads) (note that a different image is required for Pico and Pico W). Tested with `8.0.2`. More recent versions will probably work. `7.3.x` will probably still work, but is not being tested regularly, and note that the iC sensor requires extra components.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get the [dmcomm-python](https://github.com/dmcomm/dmcomm-python) repo. If you don't have Git, you can use the "Download ZIP" option.
