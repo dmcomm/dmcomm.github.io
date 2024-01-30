@@ -10,30 +10,19 @@ Project using Raspberry Pi Pico and other RP2040 boards to communicate with pron
 
 This document is part of the DMComm Software under the [MIT License](https://github.com/dmcomm/dmcomm-python/blob/main/LICENSE.txt). 
 
-## App status
-
-* Alpha on Windows: OK.
-* Alpha on Android: OK; make sure you have the new version from Google Play.
-* W0rld on Windows: OK when using the `data` serial port (see below).
-* W0rld on Android: a little flaky.
-* ACom Wiki on Android: OK.
-
 ## WiFiCom
 
-[WiFiCom](https://wificom.dev/) is a closely related project to communicate with Digimon toys over WiFi. The build includes the circuits described here. If you build the project on this page using Pi Pico W, it can be upgraded to a WiFiCom in the future. If using Pi Pico W for the project on this page, adding the visible LED circuit on GP10 is recommended but not required.
+[WiFiCom](https://wificom.dev/) is a closely related project to communicate with Digimon toys over WiFi. The build includes the circuits described here. If you build the project on this page using Pi Pico W, it can be upgraded to a WiFiCom in the future. If using Pi Pico W for the project on this page, adding the visible LED circuit on GP10 is recommended but not required. Installing the WiFiCom firmware is now recommended even on non-WiFi boards.
 
 ## Circuit
 
-**Note:** the default `prong_in` is being moved from GP26 to GP22 for Python. Please check your circuit and `board_config.py` to ensure they match. An analog pin (default GP26) is still required for Arduino.
+[Schematic](/images/picocom_wificom_2023-09-03.pdf) (including WiFiCom in lower half, updated 2023-09-03).
 
-* [Schematic](/images/picocom_wificom_2023-05-01.pdf) (including WiFiCom in lower half, updated 2023-05-01).
-* [Example breadboard diagram](/images/pi_pico_breadboard.png) - with prongs and all IR including Xros Loader, but not the button (`prong_in` still on GP26).
-* [Example breadboard photo](/images/pi_pico_breadboard.jpg) - as in the diagram above. Note the breadboard in the photo is a rare one with 6 rows on each side, but the same layout should fit on a normal 5-row breadboard (`prong_in` still on GP26).
-* [Photo with just the IR components, from the side](/images/pi_pico_ir_components.jpg) - TSMP58000 at the back, TSOP4838 directly in front of it - if using both, cut the TSOP4838 shorter so the TSMP58000 can see over it.
+The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The IR LED circuit can be used by itself for D-Scanner barcodes, and in that case a red LED also works. On the schematic, some pins on the Pi Pico are reserved for related projects but not explained in this guide.
 
-The schematic shows the different sections of the circuit for each type of device. You can leave out any sections you're not using. The IR LED circuit can be used by itself for D-Scanner barcodes, and in that case a red LED also works. The Xros Loader section is not entirely working, and may change to something completely different or be abandoned, so I'd only suggest building that if you're really keen to help! On the schematic, some pins on the Pi Pico are reserved for related projects but not explained in this guide.
+The new prong circuit is a 3-state level shifter like a D-Com, but with far fewer components. It can't be used on 8-bit AVR because of a difference in how the pins are controlled.
 
-The new prong circuit is a 3-state level shifter like a D-Com, but with far fewer components. It can't be used on 8-bit AVR because of a difference in how the pins are controlled. If using a different RP2040 board, check the schematic for your board, and make sure to pick `prong_drive_low=prong_drive_signal+1` in terms of RP2040 GPIO numbers, which don't always match up with the pin numbers on the board.
+Check `board_config.py` for recommended pins on Arduino Nano RP2040 Connect and Seeeduino Xiao RP2040. `ProngOutput` takes parameters `prong_drive_signal` and `prong_weak_pull`. `prong_drive_low` must be `prong_drive_signal+1` in terms of RP2040 GPIO numbers, which don't always match up with the pin numbers on the board. If using a different RP2040 board, check the schematic for your board, and make sure to choose pins which follow this rule.
 
 ### Parts list
 
@@ -42,20 +31,18 @@ Insulated breadboard wires are good for connecting far-apart holes, and can be u
 Base ([breadboard](/images/pi_pico_button.jpg)):
 * Pi Pico with headers
 * 400 tie point breadboard
-* small pushbutton (tactile switch) recommended if using CircuitPython
+* small pushbutton (tactile switch) if using CircuitPython
     * typically 3×3 on breadboard, but can insert 2 pins and flatten the others
     * a wire can be used instead: add for updates; remove for normal use
 
-Prong circuit ([breadboard](/images/pi_pico_prongs.jpg), `prong_in` still on GP26):
-* Resistors, 1 each of 470K, 100K, 4K7 (or 6K8 may be better), 1K
+Prong circuit ([old breadboard](/images/pi_pico_prongs.jpg), don't copy this exactly: `prong_in` has been moved from GP26 to GP22, and a resistor has been changed from 4K7 to 6K8):
+* Resistors, 1 each of 470K, 100K, 6K8, 1K
 * 1nF ceramic capacitor
 * 3 short wires
 * Connector to toy e.g. 2 breadboard wires
 
 IR LED circuit ([breadboard](/images/pi_pico_ir_led.jpg)), shared between all IR devices and D-Scanner barcodes:
-* IR LED, 940nm or 950nm
-    * LEDs with half-angles of 10 and 15 degrees tested and working
-    * 30 degrees did not work well with the D-Scanner
+* IR LED, 940nm or 950nm; OFL-5102 or LTE-4208 works well
 * 220R resistor
 * 1 short wire
     * can be shared with prong circuit
@@ -65,21 +52,8 @@ Data Link and Fusion Loader ([front-right in this photo](/images/pi_pico_ir_comp
 * TSOP4838 IR sensor: Vishay brand recommended, others may have issues with Data Link
 * (Also need the IR LED circuit)
 
-iC/Twin/DigiWindow:
-* TSMP58000 IR sensor
-* If using CircuitPython 7 ([breadboard](/images/pi_pico_ic.jpg)):
-    * 22K resistor
-    * 1nF ceramic capacitor
-    * 2 short wires
-* If using CircuitPython 8, can use the sensor by itself, positioned as in the photo above
-* (Also need the IR LED circuit)
-
-Xros Loader (highly experimental):
-* QSE159 IR sensor
-* 220R resistor
-* 2 × 100nF ceramic capacitor
-* 2 short wires
-* 2 breadboard wires
+iC/Twin/DigiWindow ([back-right in this photo](/images/pi_pico_ir_components.jpg)):
+* TSMP58000 IR sensor: this is discontinued, see schematic for alternatives
 * (Also need the IR LED circuit)
 
 Talispod/dam:
@@ -93,27 +67,31 @@ Talispod/dam:
     * Note: we can't just stick wires into the prongs as with Digimon
     * Craft a connector?
     * Desolder a Talisdam cord, replace with something else, and use the cord with other toys?
-    * Custom connectors are in development
+    * Xanthos has connectors for sale
 
 ## Arduino
 
-Only pronged devices are currently supported. Usage is the same as for the original version, except currently missing the "T" command. The CircuitPython firmware option is now recommended instead.
+Only pronged devices are currently supported. Usage is the same as for the original version. The CircuitPython firmware option is now recommended instead.
 
-In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Manager. (This project uses the official Arduino support and not the older unofficial one from Earle Philhower.) To flash the Pi Pico using Arduino for the first time, you need to hold the BOOTSEL button while connecting to the computer. Flash the sketch from the [pi-pico branch](https://github.com/dmcomm/dmcomm-project/blob/pi-pico/dmcomm/dmcomm.ino). You can right-click the "Raw" button and choose "Save as" to download the single file.
+In the Arduino IDE, install "Arduino Mbed OS RP2040 Boards" using the Boards Manager. (This project uses the official Arduino support and not the older unofficial one from Earle Philhower.) To flash the Pi Pico using Arduino for the first time, you need to hold the BOOTSEL button while connecting to the computer. Flash `ClassicComUnit` from [dmcomm-arduino-lib](https://github.com/dmcomm/dmcomm-arduino-lib).
 
 ## CircuitPython
 
-### Setup
+### WiFiCom firmware (recommended)
 
-* Download CircuitPython 8 from the [website](https://circuitpython.org/downloads) (note that a different image is required for Pico and Pico W). Tested with `8.0.5`. More recent versions will probably work. `7.3.x` will probably still work, but is not being tested regularly, and note that the iC sensor requires extra components.
+Follow the instructions at [wificom-update-tool](https://github.com/mechawrench/wificom-update-tool).
+
+### Manual setup for dmcomm-python only
+
+* Download CircuitPython 8 from the [website](https://circuitpython.org/downloads) (note that a different image is required for Pico and Pico W). Tested with `8.2.2`. More recent versions will probably work.
 * Connect the Pi Pico to the computer while holding the BOOTSEL button. The RPI-RP2 drive should appear.
 * Copy the CircuitPython image to the RPI-RP2 drive. The CIRCUITPY drive should appear.
 * Get [dmcomm-python](https://github.com/dmcomm/dmcomm-python/releases) and unzip.
-* Copy `code.py`, `board_config.py`, and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
-* Copy `boot.py` too if you want to switch to the `data` serial port and write-protect the CIRCUITPY drive (unless the custom button is held at startup). The `data` serial port is required for w0rld, but may not show all error messages. A writeable CIRCUITPY drive is required for updating DMComm, but can get corrupted (particularly on Mac) or make the program restart unexpectedly. You will need to reset/replug the Pi Pico before `boot.py` takes effect.
-* Now you can use the Alpha apps or ACom Wiki as usual. Alpha Serial shows some odd output at startup, but this is not a problem.
+* Copy `boot.py`, `code.py`, `board_config.py`, and the `lib` folder to the CIRCUITPY drive (there might already be a `lib` folder there, so really you are copying the `lib/dmcomm` folder into it).
+* Safely remove the CIRCUITPY drive from the computer and reset/replug the Pi Pico.
+* Now you can use the usual apps as for an A-Com. Alpha Serial shows some odd output at startup, but this is not a problem.
 * To update CircuitPython, repeat the first three steps.
-* To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo. If you copied `boot.py` earlier, connect the Pi Pico to the computer while holding the custom button (wait until CIRCUITPY appears before releasing the button). If you copied `boot.py` and don't have a button, connect GP3 to GND with a wire, then connect the Pi Pico to the computer.
+* To update DMComm, replace the specified files on the CIRCUITPY drive with new ones from the git repo. To make CIRCUITPY writeable, you will need to connect the Pi Pico to the computer while holding the custom button (wait until CIRCUITPY appears before releasing the button). If you don't have a button, connect GP3 to GND with a wire, then connect the Pi Pico to the computer.
 
 ### Usage
 
