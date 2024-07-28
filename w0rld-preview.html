@@ -1,0 +1,65 @@
+<html>
+<title>w0rld sprite previewer</title>
+<head>
+<style>
+div {
+    margin: 10px;
+}
+#animation {
+    width: 80px;
+    height: 80px;
+    background-size: 320px 80px;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+</style>
+<script>
+const frameSequence = [0, 1, 0, 1, 0, 2, 0, 3];
+const delay = 500;
+
+function loadImage() {
+    const file = this.files[0];
+    if (!file.type.startsWith("image/")) {
+        alert("Not an image!")
+        return;
+    }
+    const animation = document.getElementById("animation");
+    const objectURL = window.URL.createObjectURL(file);
+    animation.style.backgroundImage = "url(" + objectURL + ")";
+}
+
+window.onload = function() {
+    const inputElement = document.getElementById("fileInput");
+    fileInput.addEventListener("change", loadImage, false);
+    let frame = 0;
+    const animation = document.getElementById("animation");
+    setInterval(function () {
+        frame ++;
+        const frameOffset = (frameSequence[frame % frameSequence.length]) * -80;
+        animation.style.backgroundPosition = frameOffset + "px" + " 0px";
+    }, delay);
+}
+</script>
+</head>
+<body>
+<h1>w0rld sprite previewer</h1>
+
+<div>
+<ul>
+<li>Currently regular monster sprites only (16x16)</li>
+<li>Sprite sheet holds 4 in a row with no spaces (64x16)</li>
+<li>Frames face to the right</li>
+<li>Frames are: neutral; step; attack; hurt</li>
+<li>Please use PNG with transparent background for final submissions</li>
+</ul>
+</div>
+
+<div>
+<input type="file" id="fileInput" accept="image/*">
+</div>
+
+<div id="animation">
+</div>
+
+</body>
+</html>
