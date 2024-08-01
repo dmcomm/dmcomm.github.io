@@ -18,10 +18,8 @@ const spriteHeight = 16;
 let scale = 6;
 let frame = 0;
 
-async function loadImage(url) {
+function loadImage(url) {
     const animation = document.getElementById("animation");
-    //animation.style.backgroundImage = ""; //didn't help
-    //await fetch(url, {cache: "reload", mode: "no-cors"}); //didn't help
     animation.style.backgroundImage = "url(" + url + ")";
 }
 
@@ -73,6 +71,9 @@ function updateAnim() {
 window.onload = function() {
     const inputElement = document.getElementById("fileInput");
     fileInput.addEventListener("change", loadImageFromFile, false);
+    fileInput.addEventListener("click", () => {
+        fileInput.value = null;
+    });
     setInterval(function () {
         frame ++;
         updateAnim();
