@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <title>w0rld sprite previewer</title>
 <head>
@@ -6,38 +7,78 @@ div {
     margin: 10px;
 }
 #animation {
-    width: 80px;
-    height: 80px;
-    background-size: 320px 80px;
     background-repeat: no-repeat;
     image-rendering: pixelated;
 }
 </style>
 <script>
-const frameSequence = [0, 1, 0, 1, 0, 2, 0, 3];
 const delay = 500;
+const spriteWidth = 16;
+const spriteHeight = 16;
+let scale = 6;
+let frame = 0;
 
-function loadImage() {
+async function loadImage(url) {
+    const animation = document.getElementById("animation");
+    //animation.style.backgroundImage = ""; //didn't help
+    //await fetch(url, {cache: "reload", mode: "no-cors"}); //didn't help
+    animation.style.backgroundImage = "url(" + url + ")";
+}
+
+function loadImageFromFile() {
     const file = this.files[0];
     if (!file.type.startsWith("image/")) {
         alert("Not an image!")
         return;
     }
+    const url = window.URL.createObjectURL(file);
+    loadImage(url);
+}
+
+function setOptions() {
+    scale = document.getElementById("scale").value;
     const animation = document.getElementById("animation");
-    const objectURL = window.URL.createObjectURL(file);
-    animation.style.backgroundImage = "url(" + objectURL + ")";
+    animation.style.width = spriteWidth * scale + "px";
+    animation.style.height = spriteHeight * scale + "px";
+    animation.style.backgroundSize = spriteWidth * scale * 4 + "px " + spriteHeight * scale + "px";
+
+    const body = document.getElementsByTagName("body")[0];
+    if (document.getElementById("bggreen").checked) {
+        body.style.backgroundColor = "#00FF00";
+    } else if (document.getElementById("bgmagenta").checked) {
+        body.style.backgroundColor = "#FF00FF";
+    } else {
+        body.style.backgroundColor = "white";
+    }
+
+    updateAnim();
+}
+
+function updateAnim() {
+    const animation = document.getElementById("animation");
+    let frameSequence = null;
+    if (document.getElementById("anistep").checked) {
+        frameSequence = [0, 1];
+    } else if (document.getElementById("aniattack").checked) {
+        frameSequence = [0, 2];
+    } else if (document.getElementById("anihurt").checked) {
+        frameSequence = [0, 3];
+    } else {
+        frameSequence = [0, 1, 0, 2, 0, 3];
+    }
+    const frameOffset = (frameSequence[frame % frameSequence.length]) * -(spriteWidth * scale);
+    animation.style.backgroundPosition = frameOffset + "px" + " 0px";
 }
 
 window.onload = function() {
     const inputElement = document.getElementById("fileInput");
-    fileInput.addEventListener("change", loadImage, false);
-    let frame = 0;
-    const animation = document.getElementById("animation");
+    fileInput.addEventListener("change", loadImageFromFile, false);
     setInterval(function () {
         frame ++;
-        const frameOffset = (frameSequence[frame % frameSequence.length]) * -80;
-        animation.style.backgroundPosition = frameOffset + "px" + " 0px";
+        updateAnim();
     }, delay);
+    setOptions();
+    loadImage("sprites.png");
 }
 </script>
 </head>
@@ -56,6 +97,26 @@ window.onload = function() {
 
 <div>
 <input type="file" id="fileInput" accept="image/*">
+</div>
+
+<div>
+Size:<br>
+<input type="number" onchange="setOptions()" id="scale" min="4" max="20" value="6">
+</div>
+
+<div>
+Background color:<br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bgwhite" checked="checked"><label>White</label><br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bggreen"><label>Green</label><br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bgmagenta"><label>Magenta</label><br>
+</div>
+
+<div>
+Animation:<br>
+<input type="radio" name="anisel" id="aniall" checked="checked"><label>All</label><br>
+<input type="radio" name="anisel" id="anistep"><label>Step</label><br>
+<input type="radio" name="anisel" id="aniattack"><label>Attack</label><br>
+<input type="radio" name="anisel" id="anihurt"><label>Hurt</label><br>
 </div>
 
 <div id="animation">
