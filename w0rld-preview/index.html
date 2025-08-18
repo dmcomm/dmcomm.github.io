@@ -41,10 +41,14 @@ function setOptions() {
     animation.style.backgroundSize = spriteWidth * scale * 4 + "px " + spriteHeight * scale + "px";
 
     const body = document.getElementsByTagName("body")[0];
-    if (document.getElementById("bggreen").checked) {
-        body.style.backgroundColor = "#00FF00";
-    } else if (document.getElementById("bgmagenta").checked) {
+    if (document.getElementById("bgmagenta").checked) {
         body.style.backgroundColor = "#FF00FF";
+    } else if (document.getElementById("bggrass").checked) {
+        body.style.backgroundColor = "#59C608";
+    } else if (document.getElementById("bgsand").checked) {
+        body.style.backgroundColor = "#DEBD7B";
+    } else if (document.getElementById("bgdirt").checked) {
+        body.style.backgroundColor = "#7A6B53";
     } else {
         body.style.backgroundColor = "white";
     }
@@ -62,7 +66,7 @@ function updateAnim() {
     } else if (document.getElementById("anihurt").checked) {
         frameSequence = [0, 3];
     } else {
-        frameSequence = [0, 1, 0, 2, 0, 3];
+        frameSequence = [0, 0, 0, 1, 0, 2, 0, 3];
     }
     const frameOffset = (frameSequence[frame % frameSequence.length]) * -(spriteWidth * scale);
     animation.style.backgroundPosition = frameOffset + "px" + " 0px";
@@ -92,6 +96,7 @@ window.onload = function() {
 <li>Sprite sheet holds 4 in a row with no spaces (64x16)</li>
 <li>Frames face to the right</li>
 <li>Frames are: neutral; step; attack; hurt</li>
+<li>Must have black outlines</li>
 <li>Please use PNG with transparent background for final submissions</li>
 </ul>
 </div>
@@ -108,8 +113,10 @@ Size:<br>
 <div>
 Background color:<br>
 <input type="radio" onchange="setOptions()" name="bgcolor" id="bgwhite" checked="checked"><label>White</label><br>
-<input type="radio" onchange="setOptions()" name="bgcolor" id="bggreen"><label>Green</label><br>
 <input type="radio" onchange="setOptions()" name="bgcolor" id="bgmagenta"><label>Magenta</label><br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bggrass"><label>Grass</label><br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bgsand"><label>Sand</label><br>
+<input type="radio" onchange="setOptions()" name="bgcolor" id="bgdirt"><label>Dirt</label><br>
 </div>
 
 <div>
